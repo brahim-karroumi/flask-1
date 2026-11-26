@@ -5,3 +5,5 @@ python-dotenv
 gunicorn
 
 openai
+
+qdrant-client

@@ -3,3 +3,7 @@ venv
 .env
 
 .vscode
+
+__pycache__
+
+data/__pycache__
