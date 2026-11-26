@@ -14,9 +14,9 @@ def home():
 
 @app.route("/chat" , methods=["POST"])
 def chat():
-    data = request.json()
+    data = request.json
     message = data.get("message")
-    return message
+    return "==> "+message
 
 
 if __name__ == "__main__":
