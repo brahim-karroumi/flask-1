@@ -22,8 +22,10 @@ def home():
 def chat():
     data = request.json
     user_input = data.get("user_input")
+    matches = search_chunks(user_input)
+    context = "\n\n".join(m["text"] for m in matches)
 
-    answer = chat_with_llm(user_input)
+    answer = chat_with_llm(user_input, context=context)
     return answer
 
 
@@ -32,6 +34,7 @@ def embed():
 
     embedding = embed_text(RESULTS)
     return embedding
+
 
 @app.route("/search", methods=["POST"])
 def search():

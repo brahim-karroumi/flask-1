@@ -1,6 +1,7 @@
 from openai import OpenAI
 import os
 from dotenv import load_dotenv
+
 load_dotenv()
 
 client = OpenAI(
@@ -19,9 +20,19 @@ system_prompt = (
 messages = [{"role": "system", "content": system_prompt}]
 
 
-def chat_with_llm(user_input):
+def chat_with_llm(user_input, context=None):
 
     messages.append({"role": "user", "content": user_input})
+    if context:
+        content = (
+            "Answer the question using only the context below. "
+            "If the context doesn't contain the answer, say so.\n\n"
+            f"Context:\n{context}\n\nQuestion: {user_input}"
+        )
+    else:
+        content = user_input
+    
+    messages.append({"role": "user", "content": content})
     response = client.chat.completions.create(
         model="openai/gpt-5-mini", messages=messages
     )
